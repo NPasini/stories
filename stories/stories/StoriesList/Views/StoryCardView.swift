@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct StoryCardView: View {
-    let story: Story
+    @StateObject private var viewModel: StoryCardViewModel
     
     var body: some View {
         VStack(spacing: 8) {
             ZStack {
                 Circle()
-                    .strokeBorder(story.isViewed ? Color.gray : Color.blue, lineWidth: 3)
+                    .strokeBorder(viewModel.isViewed ? Color.gray : Color.blue, lineWidth: 3)
                     .frame(width: 60, height: 60)
                 
-                AsyncImage(url: story.imageUrl) { phase in
+                AsyncImage(url: viewModel.imageUrl) { phase in
                     if let image = phase.image {
                         image
                             .resizable()
@@ -32,31 +32,41 @@ struct StoryCardView: View {
                 .frame(width: 54, height: 54)
             }
             
-            Text(story.userName)
+            Text(viewModel.userName)
                 .font(.caption)
                 .lineLimit(1)
         }
         .frame(width: 80)
+    }
+    
+    init(viewModel: StoryCardViewModel) {
+        self._viewModel = StateObject(
+            wrappedValue: viewModel
+        )
     }
 }
 
 #Preview {
     VStack(spacing: 50) {
         StoryCardView(
-            story: .init(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-                isViewed: false,
-                userName: "Bulba",
-                userImageUrl: "https://i.pravatar.cc/300?u=1"
-            )!
+            viewModel: StoryCardViewModel(
+                story: Story(
+                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                    userName: "Bulba",
+                    userImageUrl: "https://i.pravatar.cc/300?u=1"
+                )!,
+                storyViewPersister: StoryViewPersisterStub(isViewed: true)
+            )
         )
         StoryCardView(
-            story: .init(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-                isViewed: false,
-                userName: "Char",
-                userImageUrl: "https://i.pravatar.cc/300?u=11"
-            )!
+            viewModel: StoryCardViewModel(
+                story: Story(
+                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                    userName: "Char",
+                    userImageUrl: "https://i.pravatar.cc/300?u=11"
+                )!,
+                storyViewPersister: StoryViewPersisterStub(isViewed: false)
+            )
         )
     }
 }

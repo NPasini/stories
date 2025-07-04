@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-struct StoriesScrollView: View {
+struct StoriesView: View {
+    private let storyViewPersister: StoryViewPersisterProtocol
+    private let favouritesPersister: FavouritesPersisterProtocol
+    
     @StateObject private var viewModel: StoriesViewModel
 
     var body: some View {
@@ -15,11 +18,18 @@ struct StoriesScrollView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) {
                     ForEach(viewModel.stories.indices, id: \.self) { index in
-                        NavigationLink(destination: StoryDetailView(story: viewModel.stories[index])) {
+                        NavigationLink(
+                            destination: StoryDetailView(
+                                viewModel: StoryDetailsViewModel(
+                                    story: viewModel.stories[index],
+                                    storyViewPersister: storyViewPersister,
+                                    favouritesPersister: favouritesPersister
+                                )
+                            )
+                        ) {
                             StoryCardView(
                                 story: viewModel.stories[index]
-                            )
-                            .onAppear {
+                            ).onAppear {
                                 if index == viewModel.stories.count - 1 {
                                     viewModel.loadMoreStories()
                                 }
@@ -33,7 +43,9 @@ struct StoriesScrollView: View {
         }.task { viewModel.loadMoreStories() }
     }
     
-    init(viewModel: StoriesViewModel) {
+    init(viewModel: StoriesViewModel, storyViewPersister: StoryViewPersisterProtocol, favouritesPersister: FavouritesPersisterProtocol) {
+        self.storyViewPersister = storyViewPersister
+        self.favouritesPersister = favouritesPersister
         self._viewModel = StateObject(
             wrappedValue: viewModel
         )
@@ -41,42 +53,11 @@ struct StoriesScrollView: View {
 }
 
 #Preview {
-    StoriesScrollView(
+    StoriesView(
         viewModel: StoriesViewModel(
             repository: StoriesRepositoryStub()
-        )
+        ),
+        storyViewPersister: StoryViewPersisterStub(isViewed: true),
+        favouritesPersister: FavouritesPersisterStub(isFavourite: true)
     )
 }
-
-#if DEBUG
-struct StoriesRepositoryStub: StoriesRepositoryProtocol {
-    func loadMoreStories() async -> [Story] {
-        [
-            Story(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-                isViewed: false,
-                userName: "Bulba",
-                userImageUrl: "https://i.pravatar.cc/300?u=1"
-            )!,
-            Story(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-                isViewed: false,
-                userName: "Char",
-                userImageUrl: "https://i.pravatar.cc/300?u=4"
-            )!,
-            Story(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
-                isViewed: false,
-                userName: "Squir",
-                userImageUrl: "https://i.pravatar.cc/300?u=7"
-            )!,
-            Story(
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
-                isViewed: false,
-                userName: "Bulba",
-                userImageUrl: "https://i.pravatar.cc/300?u=20"
-            )!
-        ]
-    }
-}
-#endif

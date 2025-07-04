@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct StoryDetailView: View {
-    let story: Story
+    @StateObject private var viewModel: StoryDetailsViewModel
 
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 12) {
-                AsyncImage(url: story.userImageUrl) { phase in
+                AsyncImage(url: viewModel.userImageUrl) { phase in
                     switch phase {
                     case .success(let image):
                         image
@@ -28,15 +28,24 @@ struct StoryDetailView: View {
                 .frame(width: 50, height: 50)
                 .clipShape(Circle())
 
-                Text(story.userName)
+                Text(viewModel.userName)
                     .font(.headline)
                     .foregroundColor(.primary)
 
                 Spacer()
+                
+                Button {
+                    viewModel.toggleFavourite()
+                } label: {
+                    Image(systemName: viewModel.isFavourite ? "star.fill" : "star")
+                        .foregroundColor(viewModel.isFavourite ? .yellow : .gray)
+                        .imageScale(.large)
+                }
+                .buttonStyle(.plain)
             }
             .padding(.horizontal)
             
-            AsyncImage(url: story.imageUrl) { phase in
+            AsyncImage(url: viewModel.imageUrl) { phase in
                 switch phase {
                 case .success(let image):
                     image
@@ -54,16 +63,39 @@ struct StoryDetailView: View {
             Spacer()
         }
         .padding()
+        .onAppear(perform: viewModel.onAppear)
+    }
+    
+    init(viewModel: StoryDetailsViewModel) {
+        self._viewModel = StateObject(
+            wrappedValue: viewModel
+        )
     }
 }
 
 #Preview {
-    StoryDetailView(
-        story: Story(
-            imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-            isViewed: false,
-            userName: "Bulba",
-            userImageUrl: "https://i.pravatar.cc/300?u=1"
-        )!
-    )
+    VStack(spacing: 50) {
+        StoryDetailView(
+            viewModel: StoryDetailsViewModel(
+                story: Story(
+                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                    userName: "Bulba",
+                    userImageUrl: "https://i.pravatar.cc/300?u=1"
+                )!,
+                storyViewPersister: StoryViewPersisterStub(isViewed: true),
+                favouritesPersister: FavouritesPersisterStub(isFavourite: true)
+            )
+        )
+        StoryDetailView(
+            viewModel: StoryDetailsViewModel(
+                story: Story(
+                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                    userName: "Bulba",
+                    userImageUrl: "https://i.pravatar.cc/300?u=1"
+                )!,
+                storyViewPersister: StoryViewPersisterStub(isViewed: false),
+                favouritesPersister: FavouritesPersisterStub(isFavourite: false)
+            )
+        )
+    }
 }

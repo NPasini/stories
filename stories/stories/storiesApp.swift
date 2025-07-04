@@ -9,16 +9,26 @@ import SwiftUI
 
 @main
 struct storiesApp: App {
+    private let userDataSource: UserDataSource
+    private let httpClient: URLSessionHTTPClient
+    
     var body: some Scene {
         WindowGroup {
-            StoriesScrollView(
+            StoriesView(
                 viewModel: StoriesViewModel(
                     repository: StoriesRepository(
-                        userDataSource: UserDataSource(dataReader: JsonReader()),
-                        pokemonDataSource: PokemonRemoteDataSource(httpClient: URLSessionHTTPClient())
+                        userDataSource: userDataSource,
+                        pokemonDataSource: PokemonRemoteDataSource(httpClient: httpClient)
                     )
-                )
+                ),
+                storyViewPersister: ,
+                favouritesPersister: 
             )
         }
+    }
+    
+    init() {
+        httpClient = URLSessionHTTPClient()
+        userDataSource = UserDataSource(dataReader: JsonReader())
     }
 }
