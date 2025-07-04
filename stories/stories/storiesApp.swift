@@ -11,7 +11,14 @@ import SwiftUI
 struct storiesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StoriesScrollView(
+                viewModel: StoriesViewModel(
+                    repository: StoriesRepository(
+                        userDataSource: UserDataSource(dataReader: JsonReader()),
+                        pokemonDataSource: PokemonRemoteDataSource(httpClient: URLSessionHTTPClient())
+                    )
+                )
+            )
         }
     }
 }

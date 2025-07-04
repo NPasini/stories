@@ -5,13 +5,14 @@
 //  Created by nicolo.pasini on 04/07/25.
 //
 
+import Foundation
+
 protocol StoriesRepositoryProtocol {
     func loadMoreStories() async -> [Story]
 }
 
 class StoriesRepository {
     private var page: Int = 0
-    private var loadedStories = [Story]()
     private let userDataSource: UserDataSourceProtocol
     private let pokemonDataSource: PokemonRemoteDataSourceProtocol
     
@@ -25,8 +26,11 @@ extension StoriesRepository: StoriesRepositoryProtocol {
     func loadMoreStories() async -> [Story] {
         do {
             let newUsers = try userDataSource.getUsers(atPage: page)
+            page += 1
             
             return try await withThrowingTaskGroup(of: Story.self) { group in
+                var stories = [Story]()
+                
                 newUsers.forEach { user in
                     group.addTask { try await self.loadStory(forUser: user) }
                 }
@@ -36,10 +40,10 @@ extension StoriesRepository: StoriesRepositoryProtocol {
                 }
                 
                 while let story = try await group.next() {
-                    loadedStories.append(story)
+                    stories.append(story)
                 }
                 
-                return loadedStories
+                return stories
             }
         } catch {
             return []

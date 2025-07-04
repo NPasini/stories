@@ -23,7 +23,7 @@ extension UserDataSource: UserDataSourceProtocol {
     func getUsers(atPage page: Int) throws -> [UserDTO] {
         let paginatedUsers: PaginatedUserDTO = try DTOMapper.map(dataReader.dataFromFile(named: Self.dataFileName))
         
-        guard page >= paginatedUsers.pages.count else { throw Error.noMoreUsers }
+        guard page < paginatedUsers.pages.count else { throw Error.noMoreUsers }
         return paginatedUsers.pages[page].users
     }
 }
