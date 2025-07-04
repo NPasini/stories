@@ -16,6 +16,10 @@ class StoriesRepository {
     private let userDataSource: UserDataSourceProtocol
     private let pokemonDataSource: PokemonRemoteDataSourceProtocol
     
+    private enum Error: Swift.Error {
+        case invalidStory
+    }
+    
     init(userDataSource: UserDataSourceProtocol, pokemonDataSource: any PokemonRemoteDataSourceProtocol) {
         self.userDataSource = userDataSource
         self.pokemonDataSource = pokemonDataSource
@@ -54,11 +58,12 @@ extension StoriesRepository: StoriesRepositoryProtocol {
 private extension StoriesRepository {
     func loadStory(forUser user: UserDTO) async throws -> Story {
         let pokemon = try await pokemonDataSource.fetchData(for: user.id)
-        return Story(
+        guard let story = Story(
             imageUrl: pokemon.sprite,
             isViewed: false,
             userName: user.name,
             userImageUrl: user.profile_picture_url
-        )
+        ) else { throw Error.invalidStory }
+        return story
     }
 }

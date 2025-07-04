@@ -21,7 +21,7 @@ class StoriesViewModel: ObservableObject {
         guard !isLoading else { return }
         isLoading = true
         
-        Task {
+        Task { @MainActor in
             let newStories = await repository.loadMoreStories()
             stories.append(contentsOf: newStories)
             isLoading = false
