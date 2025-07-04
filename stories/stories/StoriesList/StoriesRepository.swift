@@ -1,0 +1,60 @@
+//
+//  StoriesRepository.swift
+//  stories
+//
+//  Created by nicolo.pasini on 04/07/25.
+//
+
+protocol StoriesRepositoryProtocol {
+    func loadMoreStories() async -> [Story]
+}
+
+class StoriesRepository {
+    private var page: Int = 0
+    private var loadedStories = [Story]()
+    private let userDataSource: UserDataSourceProtocol
+    private let pokemonDataSource: PokemonRemoteDataSourceProtocol
+    
+    init(userDataSource: UserDataSourceProtocol, pokemonDataSource: any PokemonRemoteDataSourceProtocol) {
+        self.userDataSource = userDataSource
+        self.pokemonDataSource = pokemonDataSource
+    }
+}
+
+extension StoriesRepository: StoriesRepositoryProtocol {
+    func loadMoreStories() async -> [Story] {
+        do {
+            let newUsers = try userDataSource.getUsers(atPage: page)
+            
+            return try await withThrowingTaskGroup(of: Story.self) { group in
+                newUsers.forEach { user in
+                    group.addTask { try await self.loadStory(forUser: user) }
+                }
+                
+                defer {
+                    group.cancelAll()
+                }
+                
+                while let story = try await group.next() {
+                    loadedStories.append(story)
+                }
+                
+                return loadedStories
+            }
+        } catch {
+            return []
+        }
+    }
+}
+
+private extension StoriesRepository {
+    func loadStory(forUser user: UserDTO) async throws -> Story {
+        let pokemon = try await pokemonDataSource.fetchData(for: user.id)
+        return Story(
+            imageUrl: pokemon.sprite,
+            isViewed: false,
+            userName: user.name,
+            userImageUrl: user.profile_picture_url
+        )
+    }
+}
