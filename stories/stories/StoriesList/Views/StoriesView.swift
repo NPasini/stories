@@ -28,7 +28,10 @@ struct StoriesView: View {
                             )
                         ) {
                             StoryCardView(
-                                story: viewModel.stories[index]
+                                viewModel: StoryCardViewModel(
+                                    story: viewModel.stories[index],
+                                    storyViewPersister: storyViewPersister
+                                )
                             ).onAppear {
                                 if index == viewModel.stories.count - 1 {
                                     viewModel.loadMoreStories()

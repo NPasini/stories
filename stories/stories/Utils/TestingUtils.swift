@@ -43,8 +43,8 @@ struct StoryViewPersisterStub: StoryViewPersisterProtocol {
 struct FavouritesPersisterStub: FavouritesPersisterProtocol {
     let isFavourite: Bool
     
-    func markStoryAsFavourite(story: Story) {}
-    func unmarkStoryAsUnfavourite(story: Story) {}
-    func isStoryFavourite(story: Story) -> Bool { isFavourite }
+    func markStoryUrlAsFavourite(story: Story) {}
+    func unmarkStoryUrlAsFavourite(story: Story) {}
+    func isStoryUrlFavourite(story: Story) -> Bool { isFavourite }
 }
 #endif

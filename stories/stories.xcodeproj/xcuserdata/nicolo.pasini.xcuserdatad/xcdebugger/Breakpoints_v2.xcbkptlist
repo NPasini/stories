@@ -3,4 +3,160 @@
    uuid = "8E2C6C98-BE20-498C-869B-B9C7F65B2681"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D81D9F24-1E40-4FD7-BB9E-B980ADEA4E98"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stories/Storages/StoryViewPersister.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "markStoryAsViewed(story:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D81D9F24-1E40-4FD7-BB9E-B980ADEA4E98 - a81d64a036020698"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "stories.StoryViewPersister.markStoryAsViewed(story: stories.Story) -&gt; ()"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/StoryViewPersister.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29">
+               </Location>
+               <Location
+                  uuid = "D81D9F24-1E40-4FD7-BB9E-B980ADEA4E98 - a81d64a036020698"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "stories.StoryViewPersister.markStoryAsViewed(story: stories.Story) -&gt; ()"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/StoryViewPersister.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D4596CB6-7B13-46BD-8FC9-BC72CCCCFA7B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stories/Storages/StoryViewPersister.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "isStoryViewed(story:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D4596CB6-7B13-46BD-8FC9-BC72CCCCFA7B - 996519092be4f2a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "stories.StoryViewPersister.isStoryViewed(story: stories.Story) -&gt; Swift.Bool"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/StoryViewPersister.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+               <Location
+                  uuid = "D4596CB6-7B13-46BD-8FC9-BC72CCCCFA7B - b28e3170ad0b0582"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.URL) -&gt; Swift.Bool in stories.StoryViewPersister.isStoryViewed(story: stories.Story) -&gt; Swift.Bool"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/StoryViewPersister.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98374D69-9261-49DB-92C9-7415A12EAFE1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stories/Storages/FavouritesUserDefaultsStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "markStoryUrlAsFavourite(story:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BAD50352-6910-495A-B671-9DDEC6DC2171"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stories/Storages/FavouritesUserDefaultsStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "unmarkStoryUrlAsFavourite(story:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BAD50352-6910-495A-B671-9DDEC6DC2171 - 6089c6bea8fee7cc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "stories.FavouritesUserDefaultsStorage.unmarkStoryUrlAsFavourite(story: stories.Story) -&gt; ()"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/FavouritesUserDefaultsStorage.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37">
+               </Location>
+               <Location
+                  uuid = "BAD50352-6910-495A-B671-9DDEC6DC2171 - 11661e9d529cd493"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (stories.StorableStory) -&gt; Swift.Bool in stories.FavouritesUserDefaultsStorage.unmarkStoryUrlAsFavourite(story: stories.Story) -&gt; ()"
+                  moduleName = "stories.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolo.pasini/Documents/GitHub/stories/stories/stories/Storages/FavouritesUserDefaultsStorage.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

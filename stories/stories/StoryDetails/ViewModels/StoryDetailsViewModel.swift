@@ -7,17 +7,6 @@
 
 import Foundation
 
-protocol StoryViewPersisterProtocol {
-    func markStoryAsViewed(story: Story)
-    func isStoryViewed(story: Story) -> Bool
-}
-
-protocol FavouritesPersisterProtocol {
-    func markStoryAsFavourite(story: Story)
-    func unmarkStoryAsUnfavourite(story: Story)
-    func isStoryFavourite(story: Story) -> Bool
-}
-
 class StoryDetailsViewModel: ObservableObject {
     @Published var isFavourite: Bool = false
     
@@ -31,9 +20,9 @@ class StoryDetailsViewModel: ObservableObject {
     
     func toggleFavourite() {
         if isFavourite {
-            favouritesPersister.markStoryAsFavourite(story: story)
+            favouritesPersister.unmarkStoryUrlAsFavourite(story: story)
         } else {
-            favouritesPersister.unmarkStoryAsUnfavourite(story: story)
+            favouritesPersister.markStoryUrlAsFavourite(story: story)
         }
         
         isFavourite = !isFavourite
@@ -53,6 +42,6 @@ class StoryDetailsViewModel: ObservableObject {
 
 private extension StoryDetailsViewModel {
     func checkIsFavourite() {
-        isFavourite = favouritesPersister.isStoryFavourite(story: story)
+        isFavourite = favouritesPersister.isStoryUrlFavourite(story: story)
     }
 }

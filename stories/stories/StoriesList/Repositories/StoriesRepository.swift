@@ -60,7 +60,6 @@ private extension StoriesRepository {
         let pokemon = try await pokemonDataSource.fetchData(for: user.id)
         guard let story = Story(
             imageUrl: pokemon.sprite,
-            isViewed: false,
             userName: user.name,
             userImageUrl: user.profile_picture_url
         ) else { throw Error.invalidStory }

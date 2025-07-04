@@ -11,6 +11,7 @@ import SwiftUI
 struct storiesApp: App {
     private let userDataSource: UserDataSource
     private let httpClient: URLSessionHTTPClient
+    private let userDefaults = UserDefaults(suiteName: "story.storage")
     
     var body: some Scene {
         WindowGroup {
@@ -21,8 +22,8 @@ struct storiesApp: App {
                         pokemonDataSource: PokemonRemoteDataSource(httpClient: httpClient)
                     )
                 ),
-                storyViewPersister: ,
-                favouritesPersister: 
+                storyViewPersister: StoryViewPersister(userDefaultsSuite: userDefaults!),
+                favouritesPersister: FavouritesUserDefaultsStorage(userDefaultsSuite: userDefaults!)
             )
         }
     }
