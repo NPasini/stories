@@ -11,21 +11,26 @@ struct StoriesScrollView: View {
     @StateObject private var viewModel: StoriesViewModel
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 16) {
-                ForEach(viewModel.stories.indices, id: \.self) { index in
-                    StoryCardView(story: viewModel.stories[index])
-                        .onAppear {
-                            if index == viewModel.stories.count - 1 {
-                                viewModel.loadMoreStories()
+        NavigationStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 16) {
+                    ForEach(viewModel.stories.indices, id: \.self) { index in
+                        NavigationLink(destination: StoryDetailView(story: viewModel.stories[index])) {
+                            StoryCardView(
+                                story: viewModel.stories[index]
+                            )
+                            .onAppear {
+                                if index == viewModel.stories.count - 1 {
+                                    viewModel.loadMoreStories()
+                                }
                             }
                         }
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
-        }
-        .frame(height: 120)
-        .task { viewModel.loadMoreStories() }
+            .frame(height: 120)
+        }.task { viewModel.loadMoreStories() }
     }
     
     init(viewModel: StoriesViewModel) {

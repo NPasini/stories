@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Story {
+class Story {
     let imageUrl: URL
-    let isViewed: Bool
+    var isViewed: Bool
     let userName: String
     let userImageUrl: URL
     

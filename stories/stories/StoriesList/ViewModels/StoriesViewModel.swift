@@ -13,10 +13,6 @@ class StoriesViewModel: ObservableObject {
     private var isLoading = false
     private let repository: StoriesRepositoryProtocol
     
-    init(repository: StoriesRepositoryProtocol) {
-        self.repository = repository
-    }
-    
     func loadMoreStories() {
         guard !isLoading else { return }
         isLoading = true
@@ -26,5 +22,9 @@ class StoriesViewModel: ObservableObject {
             stories.append(contentsOf: newStories)
             isLoading = false
         }
+    }
+    
+    init(repository: StoriesRepositoryProtocol) {
+        self.repository = repository
     }
 }
