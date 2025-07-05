@@ -6,11 +6,12 @@
 //
 
 struct PokemonDTO: Decodable {
+    let id: Int
     let name: String
     let sprite: String
     
     enum PokemonCodingKeys: String, CodingKey {
-        case name, sprites
+        case id, name, sprites
     }
     
     enum SpriteCodingKeys: String, CodingKey {
@@ -19,14 +20,10 @@ struct PokemonDTO: Decodable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: PokemonCodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         
         let spritesContainer = try container.nestedContainer(keyedBy: SpriteCodingKeys.self, forKey: .sprites)
         sprite = try spritesContainer.decode(String.self, forKey: .front)
-    }
-    
-    init(name: String, sprite: String) {
-        self.name = name
-        self.sprite = sprite
     }
 }

@@ -1,0 +1,15 @@
+{
+    "users": [
+        { "id": 1, "name": "Neo", "profile_picture_url": "https://i.pravatar.cc/300?u=1" },
+        { "id": 2, "name": "Trinity", "profile_picture_url": "https://i.pravatar.cc/300?u=2" },
+        { "id": 3, "name": "Morpheus", "profile_picture_url": "https://i.pravatar.cc/300?u=3" },
+        { "id": 4, "name": "Smith", "profile_picture_url": "https://i.pravatar.cc/300?u=4" },
+        { "id": 5, "name": "Oracle", "profile_picture_url": "https://i.pravatar.cc/300?u=5" },
+        { "id": 6, "name": "Cypher", "profile_picture_url": "https://i.pravatar.cc/300?u=6" },
+        { "id": 7, "name": "Niobe", "profile_picture_url": "https://i.pravatar.cc/300?u=7" },
+        { "id": 8, "name": "Dozer", "profile_picture_url": "https://i.pravatar.cc/300?u=8" },
+        { "id": 9, "name": "Switch", "profile_picture_url": "https://i.pravatar.cc/300?u=9" },
+        { "id": 10, "name": "Tank", "profile_picture_url": "https://i.pravatar.cc/300?u=10" }
+    ]
+}
+

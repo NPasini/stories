@@ -16,10 +16,6 @@ class StoriesRepository {
     private let userDataSource: UserDataSourceProtocol
     private let pokemonDataSource: PokemonRemoteDataSourceProtocol
     
-    private enum Error: Swift.Error {
-        case invalidStory
-    }
-    
     init(userDataSource: UserDataSourceProtocol, pokemonDataSource: any PokemonRemoteDataSourceProtocol) {
         self.userDataSource = userDataSource
         self.pokemonDataSource = pokemonDataSource
@@ -32,7 +28,7 @@ extension StoriesRepository: StoriesRepositoryProtocol {
             let newUsers = try userDataSource.getUsers(atPage: page)
             page += 1
             
-            return try await withThrowingTaskGroup(of: Story.self) { group in
+            return try await withThrowingTaskGroup(of: Story?.self) { group in
                 var stories = [Story]()
                 
                 newUsers.forEach { user in
@@ -43,7 +39,7 @@ extension StoriesRepository: StoriesRepositoryProtocol {
                     group.cancelAll()
                 }
                 
-                while let story = try await group.next() {
+                while let story = try await group.next(), let story = story {
                     stories.append(story)
                 }
                 
@@ -56,13 +52,13 @@ extension StoriesRepository: StoriesRepositoryProtocol {
 }
 
 private extension StoriesRepository {
-    func loadStory(forUser user: UserDTO) async throws -> Story {
+    func loadStory(forUser user: UserDTO) async throws -> Story? {
         let pokemon = try await pokemonDataSource.fetchData(for: user.id)
-        guard let story = Story(
+        return Story(
+            id: pokemon.id,
             imageUrl: pokemon.sprite,
             userName: user.name,
             userImageUrl: user.profile_picture_url
-        ) else { throw Error.invalidStory }
-        return story
+        )
     }
 }

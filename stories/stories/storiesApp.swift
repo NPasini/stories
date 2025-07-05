@@ -22,7 +22,7 @@ struct storiesApp: App {
                         pokemonDataSource: PokemonRemoteDataSource(httpClient: httpClient)
                     )
                 ),
-                storyViewPersister: StoryViewPersister(userDefaultsSuite: userDefaults!),
+                storyViewPersister: StoryViewUserDefaultsStorage(userDefaultsSuite: userDefaults!),
                 favouritesPersister: FavouritesUserDefaultsStorage(userDefaultsSuite: userDefaults!)
             )
         }

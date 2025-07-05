@@ -12,16 +12,16 @@ class StoryCardViewModel: ObservableObject {
     @Published var isViewed = false
     
     private let story: Story
-    private let storyViewPersister: StoryViewPersisterProtocol
+    private let storyViewPersister: LocalPersisterProtocol
     
     var imageUrl: URL { story.imageUrl }
     var userName: String { story.userName }
     
     func onAppear() {
-        isViewed = storyViewPersister.isStoryViewed(story: story)
+        isViewed = storyViewPersister.isStoryAdded(story)
     }
     
-    init(story: Story, storyViewPersister: StoryViewPersisterProtocol) {
+    init(story: Story, storyViewPersister: LocalPersisterProtocol) {
         self.story = story
         self.storyViewPersister = storyViewPersister
     }

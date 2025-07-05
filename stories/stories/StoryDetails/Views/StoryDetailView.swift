@@ -77,22 +77,14 @@ struct StoryDetailView: View {
     VStack(spacing: 50) {
         StoryDetailView(
             viewModel: StoryDetailsViewModel(
-                story: Story(
-                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-                    userName: "Bulba",
-                    userImageUrl: "https://i.pravatar.cc/300?u=1"
-                )!,
+                story: Story.stub1,
                 storyViewPersister: StoryViewPersisterStub(isViewed: true),
                 favouritesPersister: FavouritesPersisterStub(isFavourite: true)
             )
         )
         StoryDetailView(
             viewModel: StoryDetailsViewModel(
-                story: Story(
-                    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-                    userName: "Bulba",
-                    userImageUrl: "https://i.pravatar.cc/300?u=1"
-                )!,
+                story: Story.stub1,
                 storyViewPersister: StoryViewPersisterStub(isViewed: false),
                 favouritesPersister: FavouritesPersisterStub(isFavourite: false)
             )

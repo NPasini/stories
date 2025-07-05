@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct StoriesView: View {
-    private let storyViewPersister: StoryViewPersisterProtocol
-    private let favouritesPersister: FavouritesPersisterProtocol
+    private let storyViewPersister: LocalPersisterProtocol
+    private let favouritesPersister: LocalPersisterProtocol
     
     @StateObject private var viewModel: StoriesViewModel
 
@@ -46,7 +46,7 @@ struct StoriesView: View {
         }.task { viewModel.loadMoreStories() }
     }
     
-    init(viewModel: StoriesViewModel, storyViewPersister: StoryViewPersisterProtocol, favouritesPersister: FavouritesPersisterProtocol) {
+    init(viewModel: StoriesViewModel, storyViewPersister: LocalPersisterProtocol, favouritesPersister: LocalPersisterProtocol) {
         self.storyViewPersister = storyViewPersister
         self.favouritesPersister = favouritesPersister
         self._viewModel = StateObject(

@@ -11,8 +11,8 @@ class StoryDetailsViewModel: ObservableObject {
     @Published var isFavourite: Bool = false
     
     private let story: Story
-    private let storyViewPersister: StoryViewPersisterProtocol
-    private let favouritesPersister: FavouritesPersisterProtocol
+    private let storyViewPersister: LocalPersisterProtocol
+    private let favouritesPersister: LocalPersisterProtocol
     
     var imageUrl: URL { story.imageUrl }
     var userName: String { story.userName }
@@ -20,9 +20,9 @@ class StoryDetailsViewModel: ObservableObject {
     
     func toggleFavourite() {
         if isFavourite {
-            favouritesPersister.unmarkStoryUrlAsFavourite(story: story)
+            favouritesPersister.removeStory(story)
         } else {
-            favouritesPersister.markStoryUrlAsFavourite(story: story)
+            favouritesPersister.addStory(story)
         }
         
         isFavourite = !isFavourite
@@ -30,10 +30,10 @@ class StoryDetailsViewModel: ObservableObject {
     
     func onAppear() {
         checkIsFavourite()
-        storyViewPersister.markStoryAsViewed(story: story)
+        storyViewPersister.addStory(story)
     }
     
-    init(story: Story, storyViewPersister: StoryViewPersisterProtocol, favouritesPersister: FavouritesPersisterProtocol) {
+    init(story: Story, storyViewPersister: LocalPersisterProtocol, favouritesPersister: LocalPersisterProtocol) {
         self.story = story
         self.storyViewPersister = storyViewPersister
         self.favouritesPersister = favouritesPersister
@@ -42,6 +42,6 @@ class StoryDetailsViewModel: ObservableObject {
 
 private extension StoryDetailsViewModel {
     func checkIsFavourite() {
-        isFavourite = favouritesPersister.isStoryUrlFavourite(story: story)
+        isFavourite = favouritesPersister.isStoryAdded(story)
     }
 }

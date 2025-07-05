@@ -8,12 +8,14 @@
 import Foundation
 
 struct Story {
+    let id: Int
     let imageUrl: URL
     let userName: String
     let userImageUrl: URL
     
-    init?(imageUrl: String, userName: String, userImageUrl: String) {
+    init?(id: Int, imageUrl: String, userName: String, userImageUrl: String) {
         guard let image = URL(string: imageUrl), let userImage = URL(string: userImageUrl) else { return nil }
+        self.id = id
         self.imageUrl = image
         self.userName = userName
         self.userImageUrl = userImage
