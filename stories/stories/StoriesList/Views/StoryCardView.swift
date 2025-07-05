@@ -16,27 +16,14 @@ struct StoryCardView: View {
                 Circle()
                     .strokeBorder(viewModel.isViewed ? Color.gray : Color.blue, lineWidth: 3)
                     .frame(width: 60, height: 60)
-                
-                AsyncImage(url: viewModel.imageUrl) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } else if phase.error != nil {
-                        Color.red
-                    } else {
-                        Color.gray.opacity(0.3)
-                    }
-                }
-                .clipShape(Circle())
-                .frame(width: 54, height: 54)
+                SmallCircleClippedImageView(imageUrl: viewModel.imageUrl)
             }
-            
             Text(viewModel.userName)
                 .font(.caption)
                 .lineLimit(1)
         }
         .frame(width: 80)
+        .onAppear(perform: viewModel.onAppear)
     }
     
     init(viewModel: StoryCardViewModel) {

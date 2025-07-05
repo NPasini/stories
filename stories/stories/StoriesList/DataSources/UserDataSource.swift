@@ -11,11 +11,7 @@ protocol UserDataSourceProtocol {
 
 struct UserDataSource {
     private static let dataFileName: String = "users"
-    
-    enum Error: Swift.Error {
-        case noMoreUsers
-    }
-    
+
     let dataReader: JsonReaderProtocol
 }
 
@@ -23,7 +19,7 @@ extension UserDataSource: UserDataSourceProtocol {
     func getUsers(atPage page: Int) throws -> [UserDTO] {
         let paginatedUsers: PaginatedUserDTO = try DTOMapper.map(dataReader.dataFromFile(named: Self.dataFileName))
         
-        guard page < paginatedUsers.pages.count else { throw Error.noMoreUsers }
-        return paginatedUsers.pages[page].users
+        let normalizedPage = page % paginatedUsers.pages.count
+        return paginatedUsers.pages[normalizedPage].users
     }
 }

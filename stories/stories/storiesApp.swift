@@ -9,27 +9,30 @@ import SwiftUI
 
 @main
 struct storiesApp: App {
-    private let userDataSource: UserDataSource
+    private let userDefaults: UserDefaults
+    private let jsonReader: JsonReaderProtocol
     private let httpClient: URLSessionHTTPClient
-    private let userDefaults = UserDefaults(suiteName: "story.storage")
     
     var body: some Scene {
         WindowGroup {
-            StoriesView(
-                viewModel: StoriesViewModel(
-                    repository: StoriesRepository(
-                        userDataSource: userDataSource,
-                        pokemonDataSource: PokemonRemoteDataSource(httpClient: httpClient)
-                    )
-                ),
-                storyViewPersister: StoryViewUserDefaultsStorage(userDefaultsSuite: userDefaults!),
-                favouritesPersister: FavouritesUserDefaultsStorage(userDefaultsSuite: userDefaults!)
-            )
+            assembleStoriesListPage()
         }
     }
     
     init() {
+        jsonReader = JsonReader()
         httpClient = URLSessionHTTPClient()
-        userDataSource = UserDataSource(dataReader: JsonReader())
+        userDefaults = UserDefaults(suiteName: "story.storage")!
+    }
+}
+
+private extension storiesApp {
+    func assembleStoriesListPage() -> AnyView {
+        let assembler = StoriesListAssembler(
+            userDefaults: userDefaults,
+            httpClient: httpClient,
+            jsonReader: jsonReader
+        )
+        return assembler.assemble()
     }
 }

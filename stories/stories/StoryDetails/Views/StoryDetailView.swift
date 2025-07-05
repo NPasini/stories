@@ -13,57 +13,30 @@ struct StoryDetailView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 12) {
-                AsyncImage(url: viewModel.userImageUrl) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case .failure:
-                        Color.red
-                    default:
-                        Color.gray.opacity(0.3)
-                    }
-                }
-                .frame(width: 50, height: 50)
-                .clipShape(Circle())
-
+                SmallCircleClippedImageView(imageUrl: viewModel.userImageUrl)
                 Text(viewModel.userName)
                     .font(.headline)
                     .foregroundColor(.primary)
-
                 Spacer()
-                
-                Button {
-                    viewModel.toggleFavourite()
-                } label: {
-                    Image(systemName: viewModel.isFavourite ? "star.fill" : "star")
-                        .foregroundColor(viewModel.isFavourite ? .yellow : .gray)
-                        .imageScale(.large)
-                }
-                .buttonStyle(.plain)
+                favouriteButton
             }
             .padding(.horizontal)
-            
-            AsyncImage(url: viewModel.imageUrl) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 400)
-                        .cornerRadius(16)
-                case .failure:
-                    Color.red.frame(height: 300)
-                default:
-                    Color.gray.opacity(0.3).frame(height: 300)
-                }
-            }
-            
+            StoryImageView(imageUrl: viewModel.imageUrl)
             Spacer()
         }
         .padding()
         .onAppear(perform: viewModel.onAppear)
+    }
+    
+    private var favouriteButton: some View {
+        Button {
+            viewModel.toggleFavourite()
+        } label: {
+            Image(systemName: viewModel.isFavourite ? "star.fill" : "star")
+                .foregroundColor(viewModel.isFavourite ? .yellow : .gray)
+                .imageScale(.large)
+        }
+        .buttonStyle(.plain)
     }
     
     init(viewModel: StoryDetailsViewModel) {
